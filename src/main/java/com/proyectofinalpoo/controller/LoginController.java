@@ -89,10 +89,7 @@ public class LoginController implements Initializable {
 
     }
 
-    @FXML
-    private void registrarCliente() {
-        mostrarAlerta(Alert.AlertType.WARNING, "WIP");
-    }
+        }
 
     private void abrirDashboard() {
         try {
@@ -112,6 +109,7 @@ public class LoginController implements Initializable {
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir el dashboard.");
         }
     }
+
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
 
