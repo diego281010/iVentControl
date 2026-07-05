@@ -114,7 +114,11 @@ public class LoginController implements Initializable {
         }
 
     }
-    
+
+    @FXML
+    private void registrarCliente() {
+        mostrarAlerta("WIP");
+    }
 
     private void mostrarAlerta(String mensaje) {
 

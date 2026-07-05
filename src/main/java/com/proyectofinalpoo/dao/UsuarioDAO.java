@@ -1,5 +1,8 @@
 package com.proyectofinalpoo.dao;
 
-public class UsuarioDAO {
-    // TODO: Acceder a la db para la revisión de usuarios y revisión de credenciales en esta zona
+import com.proyectofinalpoo.model.Persona;
+
+public interface UsuarioDAO {
+    void insertar(Persona p);
+
 }
