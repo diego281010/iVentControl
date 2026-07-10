@@ -111,6 +111,24 @@ public class LoginController implements Initializable {
     }
 
 
+    @FXML
+    private void registrarCliente(ActionEvent event) {
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/com/proyectofinalpoo/view/registro_cliente.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) btnRegistrarCliente.getScene().getWindow();
+            stage.setTitle("Registro de cliente");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            mostrarAlerta("No se pudo abrir la pantalla de registro.");
+        }
+
+    }
+
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
 
         Alert alert = new Alert(tipo);
