@@ -3,9 +3,12 @@ package com.proyectofinalpoo.controller;
 import com.proyectofinalpoo.db.Conexion;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -115,6 +118,24 @@ public class LoginController implements Initializable {
 
     }
 
+
+    @FXML
+    private void registrarCliente(ActionEvent event) {
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/com/proyectofinalpoo/view/registro_cliente.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) btnRegistrarCliente.getScene().getWindow();
+            stage.setTitle("Registro de cliente");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            mostrarAlerta("No se pudo abrir la pantalla de registro.");
+        }
+
+    }
 
     private void mostrarAlerta(String mensaje) {
 
