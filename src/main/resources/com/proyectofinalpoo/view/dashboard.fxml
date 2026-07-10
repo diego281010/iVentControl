@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.proyectofinalpoo.controller.DashboardController"
+            prefWidth="900" prefHeight="600">
+
+    <left>
+        <VBox spacing="10" prefWidth="180" style="-fx-padding: 20; -fx-background-color: #1f2937;">
+            <Label text="iVentControl" style="-fx-text-fill: white; -fx-font-size: 20;" />
+
+            <Button text="Inicio" maxWidth="Infinity" onAction="#mostrarInicio"/>
+            <Button text="Productos" maxWidth="Infinity" onAction="#mostrarProductos"/>
+            <Button text="Proveedores" maxWidth="Infinity" onAction="#mostrarProveedores"/>
+            <Button text="Cerrar sesión" maxWidth="Infinity" onAction="#cerrarSesion"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contenedorContenido" style="-fx-padding: 20;">
+            <Label text="Bienvenido al dashboard" style="-fx-font-size: 24;" />
+        </StackPane>
+    </center>
+
+</BorderPane>

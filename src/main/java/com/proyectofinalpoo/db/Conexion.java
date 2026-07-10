@@ -16,21 +16,12 @@ public class Conexion {
             "#ProyectoPoo";
 
         public static Connection getConnection() {
-
-            Connection conexion = null;
-
             try {
-
-                conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-
+                return DriverManager.getConnection(URL, USER, PASSWORD);
             } catch (SQLException e) {
-
-                System.out.println("Error al conectar con la base de datos.");
+                System.out.println("Error al conectar con la base de datos." + e.getMessage());
                 System.out.println("Motivo: " + e.getMessage());
-
+                return null;
             }
-
-            return conexion;
-
         }
     }
