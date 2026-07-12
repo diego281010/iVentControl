@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/proyectofinalpoo/view/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Inicio de sesión");
+        stage.setTitle("iVentControl - Login");
         stage.setScene(scene);
         stage.show();
     }

@@ -2,27 +2,47 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.proyectofinalpoo.controller.DashboardController"
-            prefWidth="900" prefHeight="600">
+<BorderPane fx:id="bpPrincipal" prefHeight="600" prefWidth="900" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectofinalpoo.controller.DashboardController">
 
     <left>
-        <VBox spacing="10" prefWidth="180" style="-fx-padding: 20; -fx-background-color: #1f2937;">
-            <Label text="iVentControl" style="-fx-text-fill: white; -fx-font-size: 20;" />
+        <VBox prefWidth="180" spacing="20.0">
+            <Label text="iVentControl">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
+         <Separator prefWidth="200.0" />
 
-            <Button text="Inicio" maxWidth="Infinity" onAction="#mostrarInicio"/>
-            <Button text="Productos" maxWidth="Infinity" onAction="#mostrarProductos"/>
-            <Button text="Proveedores" maxWidth="Infinity" onAction="#mostrarProveedores"/>
-            <Button text="Cerrar sesión" maxWidth="Infinity" onAction="#cerrarSesion"/>
+            <Button maxWidth="Infinity" onAction="#mostrarInicio" text="Inicio" />
+            <Button maxWidth="Infinity" onAction="#mostrarProductos" text="Productos" />
+            <Button maxWidth="Infinity" onAction="#mostrarProveedores" text="Proveedores" />
+         <Button layoutX="10.0" layoutY="178.0" maxWidth="Infinity" onAction="#mostrarUsuarios" text="Usuarios" />
+            <Button fx:id="btnCerrarSesion" maxWidth="Infinity" onAction="#cerrarSesion" text="Cerrar sesión" />
         </VBox>
     </left>
-
-    <center>
-        <StackPane fx:id="contenedorContenido" style="-fx-padding: 20;">
-            <Label text="Bienvenido al dashboard" style="-fx-font-size: 24;" />
-        </StackPane>
-    </center>
+   <center>
+      <StackPane fx:id="contenedorContenido" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Label text="Bienvenido al Dashboard">
+                     <font>
+                        <Font size="48.0" />
+                     </font></Label>
+                  <Label text="placeholder nombre">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="263.0" layoutY="338.0" text="placeholder rol">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children></StackPane>
+   </center>
 
 </BorderPane>
