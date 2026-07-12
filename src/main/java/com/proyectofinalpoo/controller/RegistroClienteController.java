@@ -1,6 +1,7 @@
 package com.proyectofinalpoo.controller;
 
 import com.proyectofinalpoo.dao.UsuarioDAO;
+import com.proyectofinalpoo.model.Cliente;
 import com.proyectofinalpoo.model.Persona;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,7 +95,7 @@ public class RegistroClienteController implements Initializable {
                 return;
             }
 
-            Persona nuevoCliente = new Persona(0, nombre, apellido, usuario, correo, password, "Cliente", "Activo");
+            Cliente nuevoCliente = new Cliente(0, nombre, apellido, usuario, correo, password, "Activo", "Cliente");
 
             boolean registrado = usuarioDAO.registrarCliente(nuevoCliente);
 

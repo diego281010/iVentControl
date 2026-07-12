@@ -16,10 +16,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
     @FXML
     private TextField txtUsuario;
-
     @FXML
     private PasswordField txtPassword;
 
@@ -89,7 +87,6 @@ public class LoginController implements Initializable {
 
     }
 
-        }
 
     private void abrirDashboard() {
         try {
@@ -110,7 +107,6 @@ public class LoginController implements Initializable {
         }
     }
 
-
     @FXML
     private void registrarCliente(ActionEvent event) {
 
@@ -120,11 +116,11 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(fxmlLoader.load());
 
             Stage stage = (Stage) btnRegistrarCliente.getScene().getWindow();
-            stage.setTitle("Registro de cliente");
+            stage.setTitle("iVentControl - Registro");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            mostrarAlerta("No se pudo abrir la pantalla de registro.");
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la pantalla de registro.");
         }
 
     }

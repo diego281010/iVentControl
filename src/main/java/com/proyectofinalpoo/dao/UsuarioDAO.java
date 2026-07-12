@@ -37,19 +37,6 @@ public class UsuarioDAO implements UsuarioDAOInterface{
         return null;
     }
 
-}
-// TODO: Acceder a la db para la revisión de usuarios y revisión de credenciales en esta zona
-
-import com.proyectofinalpoo.db.Conexion;
-import com.proyectofinalpoo.model.Persona;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class UsuarioDAO {
-
     public boolean existeUsuarioOCorreo(String usuario, String correo) throws SQLException {
 
         String sql = "SELECT 1 FROM usuario WHERE usuario = ? OR correo = ?";
@@ -85,4 +72,5 @@ public class UsuarioDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
 }
