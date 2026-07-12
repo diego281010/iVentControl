@@ -16,10 +16,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
     @FXML
     private TextField txtUsuario;
-
     @FXML
     private PasswordField txtPassword;
 
@@ -89,10 +87,6 @@ public class LoginController implements Initializable {
 
     }
 
-    @FXML
-    private void registrarCliente() {
-        mostrarAlerta(Alert.AlertType.WARNING, "WIP");
-    }
 
     private void abrirDashboard() {
         try {
@@ -111,6 +105,24 @@ public class LoginController implements Initializable {
             e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir el dashboard.");
         }
+    }
+
+    @FXML
+    private void registrarCliente(ActionEvent event) {
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/com/proyectofinalpoo/view/registro_cliente.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            Stage stage = (Stage) btnRegistrarCliente.getScene().getWindow();
+            stage.setTitle("iVentControl - Registro");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la pantalla de registro.");
+        }
+
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
