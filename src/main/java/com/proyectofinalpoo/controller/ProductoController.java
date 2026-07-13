@@ -3,13 +3,16 @@ package com.proyectofinalpoo.controller;
 import com.proyectofinalpoo.dao.ProductoDAO;
 import com.proyectofinalpoo.dao.ProductoDAOImpl;
 import com.proyectofinalpoo.model.Producto;
+import com.proyectofinalpoo.util.Sesion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -43,6 +46,12 @@ public class ProductoController implements Initializable {
     private TableColumn<Producto, Integer> colProveedor;
 
     @FXML
+    private TextField txtBuscarProducto;
+
+    @FXML
+    private VBox panelFormularioProducto;
+
+    @FXML
     private TextField txtNombreProducto;
     @FXML
     private TextField txtTipoProducto;
@@ -65,6 +74,8 @@ public class ProductoController implements Initializable {
 
     private int idProductoSeleccionado = 0;
 
+    private FilteredList<Producto> productosFiltrados;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -80,9 +91,7 @@ public class ProductoController implements Initializable {
         colProveedor.setCellValueFactory(new PropertyValueFactory<>("id_proveedor"));
 
         cbxEstadoProducto.setItems(FXCollections.observableArrayList(
-                "Disponible",
-                "Agotado",
-                "Descontinuado"
+                "Disponible", "Agotado", "Descontinuado"
         ));
 
         tablaProductos.getSelectionModel().selectedItemProperty().addListener(
@@ -93,15 +102,52 @@ public class ProductoController implements Initializable {
                 }
         );
 
+        aplicarPermisosPorRol();
         cargarTabla();
+    }
+
+    private void aplicarPermisosPorRol() {
+        boolean puedeEditar = !Sesion.getInstancia().esCliente();
+        panelFormularioProducto.setVisible(puedeEditar);
+        panelFormularioProducto.setManaged(puedeEditar);
     }
 
     private void cargarTabla() {
         try {
             ObservableList<Producto> productos = FXCollections.observableArrayList(productoDAO.listar());
-            tablaProductos.setItems(productos);
+            productosFiltrados = new FilteredList<>(productos, p -> true);
+            tablaProductos.setItems(productosFiltrados);
         } catch (SQLException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo cargar la lista de productos.");
+        }
+    }
+
+    @FXML
+    private void buscarProducto(ActionEvent event) {
+
+        String texto = txtBuscarProducto.getText().trim().toLowerCase();
+
+        if (productosFiltrados == null) {
+            return;
+        }
+
+        productosFiltrados.setPredicate(producto -> {
+            if (texto.isEmpty()) {
+                return true;
+            }
+            boolean coincideNombre = producto.getNombre_producto() != null
+                    && producto.getNombre_producto().toLowerCase().contains(texto);
+            boolean coincideTipo = producto.getTipo() != null
+                    && producto.getTipo().toLowerCase().contains(texto);
+            return coincideNombre || coincideTipo;
+        });
+    }
+
+    @FXML
+    private void quitarFiltro(ActionEvent event) {
+        txtBuscarProducto.clear();
+        if (productosFiltrados != null) {
+            productosFiltrados.setPredicate(p -> true);
         }
     }
 

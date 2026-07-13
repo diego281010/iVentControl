@@ -1,6 +1,8 @@
 package com.proyectofinalpoo.controller;
 
 import com.proyectofinalpoo.dao.UsuarioDAO;
+import com.proyectofinalpoo.model.Persona;
+import com.proyectofinalpoo.util.Sesion;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,31 +18,27 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
     @FXML
     private TextField txtUsuario;
     @FXML
     private PasswordField txtPassword;
-
     @FXML
     private ComboBox<String> cbxRol;
-
     @FXML
     private Button btnIngresar;
-
     @FXML
     private Button btnRegistrarCliente;
 
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         cbxRol.setItems(FXCollections.observableArrayList(
                 "Administrador",
                 "Vendedor",
                 "Cliente"
         ));
-
     }
 
     @FXML
@@ -49,8 +47,6 @@ public class LoginController implements Initializable {
         String usuario = txtUsuario.getText().trim();
         String password = txtPassword.getText().trim();
         String rol = cbxRol.getValue();
-
-        // VALIDACIONES
 
         if (usuario.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Debe ingresar el usuario.");
@@ -70,11 +66,10 @@ public class LoginController implements Initializable {
         }
 
         try {
+            Persona persona = usuarioDAO.validarLogin(usuario, password, rol);
 
-            String nombre = usuarioDAO.validarLogin(usuario, password, rol);
-
-            if (nombre != null) {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido " + nombre);
+            if (persona != null) {
+                Sesion.getInstancia().iniciarSesion(persona);
                 abrirDashboard();
             } else {
                 mostrarAlerta(Alert.AlertType.WARNING, "Usuario, contraseña o rol incorrectos");
@@ -82,18 +77,14 @@ public class LoginController implements Initializable {
 
         } catch (SQLException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al conectar con la base de datos.");
-            e.printStackTrace();
         }
-
     }
-
 
     private void abrirDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/proyectofinalpoo/view/dashboard.fxml")
             );
-
             Scene scene = new Scene(loader.load());
 
             Stage stage = (Stage) btnIngresar.getScene().getWindow();
@@ -102,14 +93,12 @@ public class LoginController implements Initializable {
             stage.centerOnScreen();
 
         } catch (IOException e) {
-            e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir el dashboard.");
         }
     }
 
     @FXML
     private void registrarCliente(ActionEvent event) {
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(
                     getClass().getResource("/com/proyectofinalpoo/view/registro_cliente.fxml"));
@@ -122,17 +111,13 @@ public class LoginController implements Initializable {
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo abrir la pantalla de registro.");
         }
-
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
-
         Alert alert = new Alert(tipo);
         alert.setTitle("iVentControl");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
-
     }
-
 }
