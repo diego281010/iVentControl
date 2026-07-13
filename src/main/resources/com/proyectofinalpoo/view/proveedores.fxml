@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15" style="-fx-padding: 15;"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.proyectofinalpoo.controller.ProveedorController">
+
+    <Label text="Gestión de proveedores">
+        <font>
+            <Font size="22.0" />
+        </font>
+    </Label>
+
+    <TableView fx:id="tablaProveedores" prefHeight="250.0">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="40" />
+            <TableColumn fx:id="colEmpresa" text="Empresa" prefWidth="180" />
+            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="120" />
+            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="180" />
+            <TableColumn fx:id="colDireccion" text="Dirección" prefWidth="180" />
+            <TableColumn fx:id="colPais" text="País" prefWidth="100" />
+        </columns>
+    </TableView>
+
+    <Separator />
+
+    <Label text="Datos del proveedor" style="-fx-font-weight: bold;" />
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" />
+            <ColumnConstraints minWidth="180" />
+            <ColumnConstraints minWidth="120" />
+            <ColumnConstraints minWidth="180" />
+        </columnConstraints>
+
+        <Label text="Empresa" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <TextField fx:id="txtEmpresaProveedor" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Teléfono" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+        <TextField fx:id="txtTelefonoProveedor" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+
+        <Label text="Correo" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <TextField fx:id="txtCorreoProveedor" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Dirección" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+        <TextField fx:id="txtDireccionProveedor" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+        <Label text="País" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <TextField fx:id="txtPaisProveedor" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button fx:id="btnGuardarProveedor" text="Guardar" onAction="#guardarProveedor" />
+        <Button fx:id="btnActualizarProveedor" text="Actualizar" onAction="#actualizarProveedor" />
+        <Button fx:id="btnEliminarProveedor" text="Eliminar" onAction="#eliminarProveedor" />
+        <Button fx:id="btnLimpiarProveedor" text="Limpiar" onAction="#limpiarFormulario" />
+    </HBox>
+
+</VBox>

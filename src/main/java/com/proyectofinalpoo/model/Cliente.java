@@ -15,4 +15,9 @@ public class Cliente extends Persona{
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String descripcionPermisos() {
+        return "Acceso de consulta: ver catálogo de productos.";
+    }
 }

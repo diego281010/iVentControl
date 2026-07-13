@@ -2,21 +2,79 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="10"
+<VBox spacing="15" style="-fx-padding: 15;"
       xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.proyectofinalpoo.controller.ProductoController">
 
-    <Label text="Gestión de productos" style="-fx-font-size: 22;" />
+    <Label text="Gestión de productos">
+        <font>
+            <Font size="22.0" />
+        </font>
+    </Label>
 
-    <TableView>
+    <TableView fx:id="tablaProductos" prefHeight="250.0">
         <columns>
-            <TableColumn text="ID" />
-            <TableColumn text="Nombre" />
-            <TableColumn text="Precio" />
-            <TableColumn text="Stock" />
+            <TableColumn fx:id="colId" text="ID" prefWidth="40" />
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150" />
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="90" />
+            <TableColumn fx:id="colColor" text="Color" prefWidth="100" />
+            <TableColumn fx:id="colAlmacenamiento" text="Almacenamiento" prefWidth="110" />
+            <TableColumn fx:id="colPrecioCompra" text="Precio compra" prefWidth="100" />
+            <TableColumn fx:id="colPrecioVenta" text="Precio venta" prefWidth="100" />
+            <TableColumn fx:id="colStock" text="Stock" prefWidth="60" />
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100" />
+            <TableColumn fx:id="colProveedor" text="Id proveedor" prefWidth="90" />
         </columns>
     </TableView>
+
+    <Separator />
+
+    <Label text="Datos del producto" style="-fx-font-weight: bold;" />
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" />
+            <ColumnConstraints minWidth="180" />
+            <ColumnConstraints minWidth="120" />
+            <ColumnConstraints minWidth="180" />
+        </columnConstraints>
+
+        <Label text="Nombre" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <TextField fx:id="txtNombreProducto" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Tipo" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+        <TextField fx:id="txtTipoProducto" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+
+        <Label text="Color" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <TextField fx:id="txtColorProducto" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Almacenamiento" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+        <TextField fx:id="txtAlmacenamientoProducto" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+        <Label text="Precio compra" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <TextField fx:id="txtPrecioCompraProducto" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+        <Label text="Precio venta" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+        <TextField fx:id="txtPrecioVentaProducto" GridPane.rowIndex="2" GridPane.columnIndex="3" />
+
+        <Label text="Stock" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <TextField fx:id="txtStockProducto" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+        <Label text="Estado" GridPane.rowIndex="3" GridPane.columnIndex="2" />
+        <ComboBox fx:id="cbxEstadoProducto" GridPane.rowIndex="3" GridPane.columnIndex="3" prefWidth="180" />
+
+        <Label text="Id proveedor" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+        <TextField fx:id="txtIdProveedorProducto" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button fx:id="btnGuardarProducto" text="Guardar" onAction="#guardarProducto" />
+        <Button fx:id="btnActualizarProducto" text="Actualizar" onAction="#actualizarProducto" />
+        <Button fx:id="btnEliminarProducto" text="Eliminar" onAction="#eliminarProducto" />
+        <Button fx:id="btnLimpiarProducto" text="Limpiar" onAction="#limpiarFormulario" />
+    </HBox>
 
 </VBox>

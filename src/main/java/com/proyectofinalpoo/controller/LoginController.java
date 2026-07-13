@@ -74,7 +74,7 @@ public class LoginController implements Initializable {
             String nombre = usuarioDAO.validarLogin(usuario, password, rol);
 
             if (nombre != null) {
-                mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido" + nombre);
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Bienvenido " + nombre);
                 abrirDashboard();
             } else {
                 mostrarAlerta(Alert.AlertType.WARNING, "Usuario, contraseña o rol incorrectos");

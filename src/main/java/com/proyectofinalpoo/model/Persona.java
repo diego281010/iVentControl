@@ -76,4 +76,6 @@ public abstract class Persona {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public abstract String descripcionPermisos();
 }

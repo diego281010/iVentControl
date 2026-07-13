@@ -15,4 +15,9 @@ public class Administrador extends Persona{
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String descripcionPermisos() {
+        return "Acceso total: gestión de productos, proveedores y usuarios.";
+    }
 }

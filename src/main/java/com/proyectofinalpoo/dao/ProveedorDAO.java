@@ -1,13 +1,15 @@
 package com.proyectofinalpoo.dao;
 
-import com.proyectofinalpoo.model.Vendedor;
+import com.proyectofinalpoo.model.Proveedor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProveedorDAO {
-    void insertar(Vendedor v);
-    void actualizar(Vendedor v);
-    void eliminar(Vendedor v);
-    void filtrarPorId(int id);
-    List<Vendedor> listar();
+    void insertar(Proveedor p) throws SQLException;
+    void actualizar(Proveedor p) throws SQLException;
+    void eliminar(int id) throws SQLException;
+    Proveedor buscarPorId(int id) throws SQLException;
+    List<Proveedor> listar() throws SQLException;
+    boolean existeProveedor(String empresa, int idExcluir) throws SQLException;
 }

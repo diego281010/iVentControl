@@ -14,4 +14,9 @@ public class Vendedor extends Persona{
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String descripcionPermisos() {
+        return "Acceso operativo: gestión de productos y proveedores.";
+    }
 }

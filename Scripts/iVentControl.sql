@@ -142,7 +142,7 @@ VALUES
     ('HomePod Mini','HomePod','Gris',NULL,75.00,99.00,11,'Disponible',2);
 ----INSERT Administradores----
 INSERT INTO usuario (nombre, apellido, usuario, correo, contrasena, rol, estado)
-VALUES ('Diego', 'Almeida', 'dalmeida', 'diego@gmail.com', '#ProyectoPoo', 'Administrador', 'Activo');
+VALUES ('Diego', 'Almeida', 'dalmeida', 'diego@gmail.com', '12345', 'Administrador', 'Activo');
 
 INSERT INTO usuario (nombre, apellido, usuario, correo, contrasena, rol, estado)
-VALUES ('Jordy', 'Cajas', 'jcajas', 'jordy@gmail.com', '#ProyectoPoo', 'Vendedor', 'Activo');
+VALUES ('Jordy', 'Cajas', 'jcajas', 'jordy@gmail.com', '67890', 'Administrador', 'Activo');
