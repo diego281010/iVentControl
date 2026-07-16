@@ -101,6 +101,7 @@ public class DashboardController {
             stage.setScene(scene);
             stage.centerOnScreen();
         } catch (Exception e) {
+            e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "No se pudo cerrar sesión.");
         }
     }

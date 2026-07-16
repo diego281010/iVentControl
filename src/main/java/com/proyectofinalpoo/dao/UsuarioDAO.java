@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO implements UsuarioDAOInterface {
 
@@ -19,9 +21,8 @@ public class UsuarioDAO implements UsuarioDAOInterface {
     }
 
     @Override
-    public Persona validarLogin(String usuario, String password, String rol) throws SQLException {
-
-        String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasena = ? AND rol = ? AND estado = 'Activo'";
+    public String validarLogin(String usuario, String password, String rol) throws SQLException {
+        String sql = "SELECT nombre FROM usuario WHERE usuario = ? AND contrasena = ? AND rol = ? AND estado = 'Activo'";
 
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -32,7 +33,7 @@ public class UsuarioDAO implements UsuarioDAOInterface {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return mapearPersona(rs);
+                    return rs.getString("nombre");
                 }
             }
         }
@@ -40,6 +41,7 @@ public class UsuarioDAO implements UsuarioDAOInterface {
         return null;
     }
 
+    @Override
     public boolean existeUsuarioOCorreo(String usuario, String correo) throws SQLException {
 
         String sql = "SELECT 1 FROM usuario WHERE usuario = ? OR correo = ?";
@@ -56,6 +58,7 @@ public class UsuarioDAO implements UsuarioDAOInterface {
         }
     }
 
+    @Override
     public boolean registrarCliente(Persona persona) throws SQLException {
 
         String sql = """
@@ -76,27 +79,139 @@ public class UsuarioDAO implements UsuarioDAOInterface {
         }
     }
 
-    /**
-     * Decide, en tiempo de ejecución, cuál subclase de Persona construir
-     * según el valor de la columna rol. Aquí es donde se usa el polimorfismo:
-     * el resto de la app recibe un Persona y no necesita saber cuál es.
-     */
-    private Persona mapearPersona(ResultSet rs) throws SQLException {
+    @Override
+    public boolean cambiarUsuarioAdmin(int idUsuario) throws SQLException {
+        String sql = "UPDATE usuario SET rol = 'Administrador' WHERE id_usuario = ? AND estado = 'Activo';";
 
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean cambiarUsuarioCliente(int idUsuario) throws SQLException {
+        String sql = "UPDATE usuario SET rol = 'Cliente' WHERE id_usuario = ? AND estado = 'Activo';";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean cambiarUsuarioVendedor(int idUsuario) throws SQLException {
+        String sql = "UPDATE usuario SET rol = 'Vendedor' WHERE id_usuario = ? AND estado = 'Activo';";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean eliminarUsuario(int idUsuario) throws SQLException{
+        String sql = "UPDATE usuario SET estado = 'Inactivo' WHERE id_usuario = ?";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public boolean reactivarUsuario(int idUsuario) throws SQLException {
+        String sql = "UPDATE usuario SET estado = 'Activo' WHERE id_usuario = ?";
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    @Override
+    public List<Persona> listarUsuarios() throws SQLException {
+        String sql = "SELECT id_usuario, nombre, apellido, usuario, correo, contrasena, rol, estado FROM usuario ORDER BY id_usuario";
+
+        try(Connection con = Conexion.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            return mapearListaUsuarios(rs);
+
+
+        }
+    }
+
+    @Override
+    public List<Persona> buscarUsuarios(String texto) throws SQLException {
+        String sql = """
+                SELECT id_usuario, nombre, apellido, usuario, correo, contrasena, rol, estado
+                FROM usuario
+                WHERE LOWER(nombre) LIKE LOWER(?)
+                   OR LOWER(apellido) LIKE LOWER(?)
+                   OR LOWER(usuario) LIKE LOWER(?)
+                   OR LOWER(correo) LIKE LOWER(?)
+                   OR LOWER(rol) LIKE LOWER(?)
+                   OR LOWER(estado) LIKE LOWER(?)
+                ORDER BY id_usuario
+                """;
+
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            String filtro = "%" + texto + "%";
+            ps.setString(1, filtro);
+            ps.setString(2, filtro);
+            ps.setString(3, filtro);
+            ps.setString(4, filtro);
+            ps.setString(5, filtro);
+            ps.setString(6, filtro);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return mapearListaUsuarios(rs);
+            }
+        }
+    }
+
+    private List<Persona> mapearListaUsuarios(ResultSet rs) throws SQLException {
+        List<Persona> usuarios = new ArrayList<>();
+
+        while (rs.next()) {
+            usuarios.add(crearPersonaDesdeResultSet(rs));
+        }
+
+        return usuarios;
+    }
+
+    private Persona crearPersonaDesdeResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt("id_usuario");
         String nombre = rs.getString("nombre");
         String apellido = rs.getString("apellido");
         String usuario = rs.getString("usuario");
         String correo = rs.getString("correo");
         String password = rs.getString("contrasena");
-        String estado = rs.getString("estado");
         String rol = rs.getString("rol");
+        String estado = rs.getString("estado");
 
-        return switch (rol) {
-            case "Administrador" -> new Administrador(id, nombre, apellido, usuario, correo, password, estado, rol);
-            case "Vendedor" -> new Vendedor(id, nombre, apellido, usuario, correo, password, estado, rol);
-            case "Cliente" -> new Cliente(id, nombre, apellido, usuario, correo, password, estado, rol);
-            default -> null;
-        };
+        if ("Administrador".equalsIgnoreCase(rol)) {
+            return new Administrador(id, nombre, apellido, usuario, correo, password, estado, rol);
+        }
+
+        if ("Vendedor".equalsIgnoreCase(rol)) {
+            return new Vendedor(id, nombre, apellido, usuario, correo, password, estado, rol);
+        }
+
+        return new Cliente(id, nombre, apellido, usuario, correo, password, estado, rol);
     }
 }
