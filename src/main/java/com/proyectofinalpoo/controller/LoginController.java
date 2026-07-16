@@ -77,6 +77,7 @@ public class LoginController implements Initializable {
 
         } catch (SQLException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error al conectar con la base de datos.");
+            e.printStackTrace();
         }
     }
 

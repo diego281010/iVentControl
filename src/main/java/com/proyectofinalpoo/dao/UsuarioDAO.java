@@ -21,8 +21,8 @@ public class UsuarioDAO implements UsuarioDAOInterface {
     }
 
     @Override
-    public String validarLogin(String usuario, String password, String rol) throws SQLException {
-        String sql = "SELECT nombre FROM usuario WHERE usuario = ? AND contrasena = ? AND rol = ? AND estado = 'Activo'";
+    public Persona validarLogin(String usuario, String password, String rol) throws SQLException {
+        String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasena = ? AND rol = ? AND estado = 'Activo'";
 
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -33,7 +33,7 @@ public class UsuarioDAO implements UsuarioDAOInterface {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("nombre");
+                    return crearPersonaDesdeResultSet(rs);
                 }
             }
         }
