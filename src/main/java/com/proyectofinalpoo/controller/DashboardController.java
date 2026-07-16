@@ -40,6 +40,12 @@ public class DashboardController {
         cargarVista("proveedores.fxml");
     }
 
+    @FXML
+    private void mostrarUsuarios() {
+        // muestra de usuarios y añadir usuarios administradores, solo admin puede hacerlo
+        cargarVista("usuarios.fxml");
+    }
+
     private void cargarVista(String nombreFXML) {
         try {
             Node vista = FXMLLoader.load(
@@ -51,12 +57,6 @@ public class DashboardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void mostrarUsuarios() {
-        // muestra de usuarios y añadir usuarios administradores, solo admin puede hacerlo
-        cargarVista("usuarios.fxml");
     }
 
     @FXML
@@ -85,5 +85,4 @@ public class DashboardController {
         alert.showAndWait();
 
     }
-
 }

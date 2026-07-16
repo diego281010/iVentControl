@@ -8,10 +8,11 @@ public abstract class Persona {
     private String correo;
     private String password;
     private String estado;
+    private String rol;
 
     public Persona() { }
 
-    public Persona(int id, String nombre, String apellido, String usuario, String correo, String password, String estado) {
+    public Persona(int id, String nombre, String apellido, String usuario, String correo, String password, String estado, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,6 +20,7 @@ public abstract class Persona {
         this.correo = correo;
         this.password = password;
         this.estado = estado;
+        this.rol = rol;
     }
 
     public int getId() {
@@ -75,5 +77,13 @@ public abstract class Persona {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

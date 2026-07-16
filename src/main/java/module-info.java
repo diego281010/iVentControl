@@ -5,8 +5,8 @@ module com.proyectofinalpoo {
     requires java.sql;
 
     opens com.proyectofinalpoo.controller to javafx.fxml;
-
     opens com.proyectofinalpoo.app to javafx.fxml;
+    opens com.proyectofinalpoo.model to javafx.base;
 
     exports com.proyectofinalpoo.app;
 }
