@@ -2,59 +2,85 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane prefHeight="400.0"
+<AnchorPane prefHeight="640.0"
             prefWidth="600.0"
+            styleClass="auth-pane"
+            stylesheets="@../css/styles.css"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.proyectofinalpoo.controller.LoginController">
 
    <children>
 
-      <Label layoutX="230.0"
-             layoutY="47.0"
-             text="iVentControl Login" />
+      <VBox alignment="CENTER" spacing="6" layoutX="0.0" layoutY="15.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fitWidth="360.0" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D minX="320" minY="112" width="767" height="521" />
+               </viewport>
+            </ImageView>
+            <Label text="Inicia sesión para continuar" styleClass="subtitulo" />
+         </children>
+      </VBox>
 
-      <HBox layoutX="154.0"
-            layoutY="103.0"
-            prefHeight="37.0"
-            prefWidth="237.0">
+      <HBox layoutX="90.0"
+            layoutY="300.0"
+            prefHeight="46.0"
+            prefWidth="420.0"
+            spacing="10"
+            alignment="CENTER_LEFT">
 
          <children>
-            <Label prefWidth="54.0" text="Usuario" />
+            <Label prefWidth="100.0" text="Usuario" />
             <TextField fx:id="txtUsuario"
-                       prefWidth="160.0" />
+                       prefWidth="290.0"
+                       prefHeight="42.0" />
          </children>
 
       </HBox>
 
-      <HBox layoutX="154.0"
-            layoutY="157.0"
-            prefHeight="37.0"
-            prefWidth="271.0">
+      <HBox layoutX="90.0"
+            layoutY="364.0"
+            prefHeight="46.0"
+            prefWidth="420.0"
+            spacing="10"
+            alignment="CENTER_LEFT">
 
          <children>
-            <Label prefWidth="74.0" text="Contraseña" />
-            <PasswordField fx:id="txtPassword" />
+            <Label prefWidth="100.0" text="Contraseña" />
+            <PasswordField fx:id="txtPassword" prefWidth="290.0" prefHeight="42.0" />
          </children>
 
       </HBox>
 
       <ComboBox fx:id="cbxRol"
-                layoutX="225.0"
-                layoutY="200.0"
-                prefWidth="150.0"
+                layoutX="190.0"
+                layoutY="428.0"
+                prefWidth="220.0"
+                prefHeight="42.0"
                 promptText="Rol" />
 
       <Button fx:id="btnIngresar"
-              layoutX="241.0"
-              layoutY="277.0"
+              layoutX="190.0"
+              layoutY="498.0"
+              prefWidth="220.0"
+              prefHeight="44.0"
               text="Ingresar"
               onAction="#ingresar" />
 
       <Button fx:id="btnRegistrarCliente"
-              layoutX="391.0"
-              layoutY="277.0"
+              styleClass="button-secondary"
+              layoutX="140.0"
+              layoutY="554.0"
+              prefWidth="320.0"
+              prefHeight="40.0"
               text="Cliente nuevo? Regístrate"
               onAction="#registrarCliente" />
 

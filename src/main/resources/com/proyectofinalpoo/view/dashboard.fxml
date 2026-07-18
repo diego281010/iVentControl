@@ -2,47 +2,78 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<BorderPane fx:id="bpPrincipal" prefHeight="600" prefWidth="900" minHeight="600" minWidth="900" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectofinalpoo.controller.DashboardController">
+<StackPane prefHeight="600" prefWidth="900" minHeight="600" minWidth="900"
+           stylesheets="@../css/styles.css"
+           xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.proyectofinalpoo.controller.DashboardController">
 
-    <left>
-        <VBox prefWidth="180" spacing="20.0">
-            <Label text="iVentControl">
-                <font>
-                    <Font size="24.0" />
-                </font></Label>
-            <Separator prefWidth="200.0" />
+    <children>
 
-            <Button maxWidth="Infinity" onAction="#mostrarInicio" text="Inicio" />
-            <Button maxWidth="Infinity" onAction="#mostrarProductos" text="Productos" />
-            <Button fx:id="btnProveedores" maxWidth="Infinity" onAction="#mostrarProveedores" text="Proveedores" />
-            <Button fx:id="btnUsuarios" maxWidth="Infinity" onAction="#mostrarUsuarios" text="Usuarios" />
-            <Button fx:id="btnCerrarSesion" maxWidth="Infinity" onAction="#cerrarSesion" text="Cerrar sesión" />
-        </VBox>
-    </left>
-    <center>
-        <StackPane fx:id="contenedorContenido" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <children>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+        <!-- Marca de agua: logo centrado detrás de todo el contenido -->
+        <ImageView fx:id="ivMarcaAgua" styleClass="watermark" fitWidth="420"
+                   preserveRatio="true" mouseTransparent="true" pickOnBounds="false">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+            <viewport>
+                <Rectangle2D minX="320" minY="112" width="767" height="521" />
+            </viewport>
+        </ImageView>
+
+        <BorderPane fx:id="bpPrincipal">
+
+            <left>
+                <VBox prefWidth="190" spacing="8.0" styleClass="sidebar">
                     <children>
-                        <Label text="Bienvenido al Dashboard">
-                            <font>
-                                <Font size="48.0" />
-                            </font></Label>
-                        <Label fx:id="lblNombreUsuario" text="">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="lblRolUsuario" text="">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
+                        <ImageView fitHeight="60.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logo.png" />
+                            </image>
+                            <viewport>
+                                <Rectangle2D minX="550" minY="117" width="307" height="361" />
+                            </viewport>
+                        </ImageView>
+                        <Separator prefWidth="200.0" />
+
+                        <Button styleClass="sidebar-button" maxWidth="Infinity" onAction="#mostrarInicio" text="Inicio" />
+                        <Button styleClass="sidebar-button" maxWidth="Infinity" onAction="#mostrarProductos" text="Productos" />
+                        <Button fx:id="btnProveedores" styleClass="sidebar-button" maxWidth="Infinity" onAction="#mostrarProveedores" text="Proveedores" />
+                        <Button fx:id="btnUsuarios" styleClass="sidebar-button" maxWidth="Infinity" onAction="#mostrarUsuarios" text="Usuarios" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Button fx:id="btnCerrarSesion" styleClass="sidebar-button,sidebar-button-danger" maxWidth="Infinity" onAction="#cerrarSesion" text="Cerrar sesión" />
                     </children>
                 </VBox>
-            </children></StackPane>
-    </center>
+            </left>
+            <center>
+                <StackPane fx:id="contenedorContenido" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="24.0">
+                            <children>
+                                <Label text="Bienvenido al Dashboard" styleClass="titulo-principal">
+                                    <font>
+                                        <Font size="52.0" />
+                                    </font></Label>
+                                <Label fx:id="lblNombreUsuario" text="" styleClass="titulo-acento">
+                                    <font>
+                                        <Font size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="lblRolUsuario" text="" styleClass="subtitulo">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children></StackPane>
+            </center>
 
-</BorderPane>
+        </BorderPane>
+
+    </children>
+
+</StackPane>
