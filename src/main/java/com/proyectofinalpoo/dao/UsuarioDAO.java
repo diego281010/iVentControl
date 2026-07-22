@@ -16,11 +16,6 @@ import java.util.List;
 public class UsuarioDAO implements UsuarioDAOInterface {
 
     @Override
-    public void insertar(Persona p) {
-        System.out.println("WIP");
-    }
-
-    @Override
     public Persona validarLogin(String usuario, String password, String rol) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE usuario = ? AND contrasena = ? AND rol = ? AND estado = 'Activo'";
 

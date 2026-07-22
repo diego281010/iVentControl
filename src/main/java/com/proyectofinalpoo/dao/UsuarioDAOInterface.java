@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UsuarioDAOInterface {
-    void insertar(Persona p);
     Persona validarLogin(String usuario, String password, String rol) throws SQLException;
     boolean existeUsuarioOCorreo(String usuario, String correo) throws SQLException;
     boolean registrarCliente(Persona persona) throws SQLException;
